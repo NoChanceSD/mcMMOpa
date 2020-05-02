@@ -37,29 +37,34 @@ import uk.co.drnaylor.mcmmopartyadmin.locales.L10n;
 
 public class ChangeOwnerSubCommand implements DualSubCommandInterface {
 
-    private final List<String> permissions = new ArrayList<String>();
+    private final List<String> permissions = new ArrayList<>();
 
     public ChangeOwnerSubCommand() {
         permissions.add("mcmmopartyadmin.admin");
     }
     
-    public List<String> getSubCommands() {
+    @Override
+	public List<String> getSubCommands() {
         return Arrays.asList("chown", "changeowner");
     }
 
-    public String getShortHelp() {
+    @Override
+	public String getShortHelp() {
         return ChatColor.YELLOW + "/partyadmin chown <player> <party> " + ChatColor.WHITE + "- " + L10n.getString("Description.ChangeOwner");
     }
 
-    public String[] getLongHelp() {
+    @Override
+	public String[] getLongHelp() {
         return new String[] { getShortHelp() };
     }
 
-    public List<String> getPermissions() {
+    @Override
+	public List<String> getPermissions() {
         return permissions;
     }
 
-    public boolean checkPermissions(CommandSender sender) {
+    @Override
+	public boolean checkPermissions(CommandSender sender) {
         if (!(sender instanceof Player) || sender.isOp()) return true;
         
         for (String p : permissions) {
@@ -69,7 +74,8 @@ public class ChangeOwnerSubCommand implements DualSubCommandInterface {
         return false;
     }
 
-    public void executeSubCommand(CommandSender sender, String[] cmdargs) {
+    @Override
+	public void executeSubCommand(CommandSender sender, String[] cmdargs) {
         if (cmdargs.length == 2) {
             changePartyOwner(sender, cmdargs[0], cmdargs[1]);
             return;
@@ -78,7 +84,8 @@ public class ChangeOwnerSubCommand implements DualSubCommandInterface {
         sender.sendMessage(getLongHelp());
     }
 
-    public List<String> onSubCommandTabComplete(CommandSender sender, String[] args) {
+    @Override
+	public List<String> onSubCommandTabComplete(CommandSender sender, String[] args) {
         if (args.length == 2) {
             return Util.getPartyCollection();
         }
@@ -92,7 +99,8 @@ public class ChangeOwnerSubCommand implements DualSubCommandInterface {
      * @param player Player to make the owner
      * @param partyName Party to make them the owner of
      */
-    private void changePartyOwner(CommandSender sender, String player, String partyName) {
+    @SuppressWarnings("deprecation")
+	private void changePartyOwner(CommandSender sender, String player, String partyName) {
         OfflinePlayer targetPlayer = PartyAdmin.getPlugin().getServer().getOfflinePlayer(player);
 
         if (targetPlayer == null) {

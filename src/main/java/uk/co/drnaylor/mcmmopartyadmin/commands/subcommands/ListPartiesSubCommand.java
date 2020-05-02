@@ -18,28 +18,33 @@ import uk.co.drnaylor.mcmmopartyadmin.locales.L10n;
 
 public class ListPartiesSubCommand implements DualSubCommandInterface {
 
-	private final List<String> permissions = new ArrayList<String>();
+	private final List<String> permissions = new ArrayList<>();
 
 	public ListPartiesSubCommand() {
 		permissions.add("mcmmopartyadmin.admin");
 	}
 
+	@Override
 	public List<String> getSubCommands() {
 		return Arrays.asList("list");
 	}
 
+	@Override
 	public String getShortHelp() {
 		return ChatColor.YELLOW + "/partyadmin list " + ChatColor.WHITE + "- " + L10n.getString("Description.List");
 	}
 
+	@Override
 	public String[] getLongHelp() {
 		return new String[] { getShortHelp() };
 	}
 
+	@Override
 	public List<String> getPermissions() {
 		return permissions;
 	}
 
+	@Override
 	public boolean checkPermissions(final CommandSender sender) {
 		if (!(sender instanceof Player) || sender.isOp())
 			return true;
@@ -52,6 +57,7 @@ public class ListPartiesSubCommand implements DualSubCommandInterface {
 		return false;
 	}
 
+	@Override
 	public void executeSubCommand(final CommandSender sender, final String[] cmdargs) {
 		if (cmdargs.length == 0) {
 			listParties(sender);
@@ -61,6 +67,7 @@ public class ListPartiesSubCommand implements DualSubCommandInterface {
 		sender.sendMessage(getLongHelp());
 	}
 
+	@Override
 	public List<String> onSubCommandTabComplete(final CommandSender sender, final String[] args) {
 		return null;
 	}
@@ -70,6 +77,7 @@ public class ListPartiesSubCommand implements DualSubCommandInterface {
 	 *
 	 * @param sender Requester to send the list to.
 	 */
+	@SuppressWarnings("deprecation")
 	private void listParties(final CommandSender sender) {
 		// Get ALL the parties!
 		final List<Party> parties = PartyAPI.getParties();

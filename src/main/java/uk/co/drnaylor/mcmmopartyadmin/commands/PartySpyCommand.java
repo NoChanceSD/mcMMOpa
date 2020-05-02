@@ -31,7 +31,8 @@ public class PartySpyCommand implements CommandExecutor {
         
     public PartySpyCommand() { }
     
-    public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] args) {
+    @Override
+	public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] args) {
         switch (args.length) {
             case 0:
                 if (cs instanceof Player) {

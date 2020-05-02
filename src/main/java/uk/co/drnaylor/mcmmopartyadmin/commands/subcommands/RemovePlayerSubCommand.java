@@ -32,29 +32,34 @@ import uk.co.drnaylor.mcmmopartyadmin.locales.L10n;
 
 public class RemovePlayerSubCommand implements DualSubCommandInterface {
 
-    private List<String> permissions = new ArrayList<String>();
+    private List<String> permissions = new ArrayList<>();
     
     public RemovePlayerSubCommand() {
         permissions.add("mcmmopartyadmin.admin");
     }
 
-    public List<String> getSubCommands() {
+    @Override
+	public List<String> getSubCommands() {
         return Arrays.asList("removeplayer", "kickplayer", "rpl");
     }
 
-    public String getShortHelp() {
+    @Override
+	public String getShortHelp() {
         return ChatColor.YELLOW + "/partyadmin rpl <player> " + ChatColor.WHITE + "- " + L10n.getString("Description.Remove");
     }
 
-    public String[] getLongHelp() {
+    @Override
+	public String[] getLongHelp() {
         return new String[] { getShortHelp() };
     }
 
-    public List<String> getPermissions() {
+    @Override
+	public List<String> getPermissions() {
         return permissions;
     }
 
-    public boolean checkPermissions(CommandSender sender) {
+    @Override
+	public boolean checkPermissions(CommandSender sender) {
         if (!(sender instanceof Player) || sender.isOp()) return true;
         
         for (String p : permissions) {
@@ -64,7 +69,8 @@ public class RemovePlayerSubCommand implements DualSubCommandInterface {
         return false;
     }
 
-    public void executeSubCommand(CommandSender sender, String[] cmdargs) {
+    @Override
+	public void executeSubCommand(CommandSender sender, String[] cmdargs) {
          if (cmdargs.length == 1) {
             removePlayerFromParty(sender, cmdargs[0]);
             return;
@@ -73,7 +79,8 @@ public class RemovePlayerSubCommand implements DualSubCommandInterface {
         sender.sendMessage(getLongHelp());
     }
 
-    public List<String> onSubCommandTabComplete(CommandSender sender, String[] args) {
+    @Override
+	public List<String> onSubCommandTabComplete(CommandSender sender, String[] args) {
         return null;
     }
     

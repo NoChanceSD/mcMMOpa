@@ -63,7 +63,8 @@ public final class L10n {
     }
     
     
-    private static String getString(String key, ResourceBundle bundle, Object... messageArguments) throws MissingResourceException {
+    @SuppressWarnings("hiding")
+	private static String getString(String key, ResourceBundle bundle, Object... messageArguments) throws MissingResourceException {
         String output = bundle.getString(key);
 
         if (messageArguments != null) {
@@ -102,7 +103,8 @@ public final class L10n {
      * @param input String to convert
      * @return Converted string
      */
-    private static String addColours(String input) {
+    private static String addColours(String inputReceived) {
+    	String input = inputReceived;
         input = input.replaceAll("\\Q[[BLACK]]\\E", ChatColor.BLACK.toString());
         input = input.replaceAll("\\Q[[DARK_BLUE]]\\E", ChatColor.DARK_BLUE.toString());
         input = input.replaceAll("\\Q[[DARK_GREEN]]\\E", ChatColor.DARK_GREEN.toString());

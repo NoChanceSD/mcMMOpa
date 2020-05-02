@@ -1,13 +1,13 @@
 package uk.co.drnaylor.mcmmopartyadmin.dualcommandexecutor;
 
+@SuppressWarnings("serial")
 public class SubCommandException extends Exception {
     
-	private final String errorMessage;
-    private final DualSubCommandInterface subCommand;
+	private final DualSubCommandInterface subCommand;
 	
+	@SuppressWarnings("unused")
 	public SubCommandException(String errorMessage, DualSubCommandInterface subCommand) {
-		this.errorMessage = errorMessage;
-        this.subCommand = subCommand;
+		this.subCommand = subCommand;
 	}
     
     public DualSubCommandInterface getSubCommand() {

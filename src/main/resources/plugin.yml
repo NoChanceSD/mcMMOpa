@@ -1,7 +1,8 @@
-name: mcMMO Party Admin
+name: mcMMO-PartyAdmin
 main: uk.co.drnaylor.mcmmopartyadmin.PartyAdmin
 version: maven-version-number
 depend: [mcMMO]
+api-version: 1.13
 commands:
     partyadmin:
         aliases: [pa]

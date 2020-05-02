@@ -36,7 +36,9 @@ import uk.co.drnaylor.mcmmopartyadmin.locales.L10n;
 
 public class FixPartiesCommand implements CommandExecutor {
 
-    public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
+    @SuppressWarnings("deprecation")
+	@Override
+	public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
         /* We assume the following:
          * 
          * 1) Command /fixparties has been requested
@@ -48,12 +50,12 @@ public class FixPartiesCommand implements CommandExecutor {
          */
 
         // Avoiding concurrent modifcation exceptions
-        List<Party> parties = new ArrayList<Party>(PartyAPI.getParties());
-        Map<OfflinePlayer, Party> playermap = new HashMap<OfflinePlayer, Party>();
+        List<Party> parties = new ArrayList<>(PartyAPI.getParties());
+        Map<OfflinePlayer, Party> playermap = new HashMap<>();
 
         for (Party p : parties) {
             // Avoiding concurrent modifcation exceptions
-			final List<String> pl = new ArrayList<String>(p.getMembers().values());
+			final List<String> pl = new ArrayList<>(p.getMembers().values());
 
             for (String pa : pl) {
                 OfflinePlayer player = PartyAdmin.getPlugin().getServer().getOfflinePlayer(pa);

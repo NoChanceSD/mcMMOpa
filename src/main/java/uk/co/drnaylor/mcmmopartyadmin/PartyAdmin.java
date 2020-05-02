@@ -85,7 +85,6 @@ public class PartyAdmin extends JavaPlugin {
      * 
      * @return true if so, false otherwise
      */
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private boolean checkForRequiredMethod() {
    
         // Reflection!

@@ -14,29 +14,34 @@ import uk.co.drnaylor.mcmmopartyadmin.locales.L10n;
 
 public class PartyChatSubCommand implements DualSubCommandInterface {
 
-    private List<String> permissions = new ArrayList<String>();
+    private List<String> permissions = new ArrayList<>();
     
     public PartyChatSubCommand() {
         permissions.add("mcmmopartyadmin.admin");
     }
 
-    public List<String> getSubCommands() {
+    @Override
+	public List<String> getSubCommands() {
         return Arrays.asList("chat", "pc");
     }
 
-    public String getShortHelp() {
+    @Override
+	public String getShortHelp() {
         return ChatColor.YELLOW + "/partyadmin pc <party> " + ChatColor.WHITE + "- " + L10n.getString("Description.PartyChat");
     }
 
-    public String[] getLongHelp() {
+    @Override
+	public String[] getLongHelp() {
         return new String[] { getShortHelp() };
     }
 
-    public List<String> getPermissions() {
+    @Override
+	public List<String> getPermissions() {
         return permissions;
     }
 
-    public boolean checkPermissions(CommandSender sender) {
+    @Override
+	public boolean checkPermissions(CommandSender sender) {
         if (!(sender instanceof Player) || sender.isOp()) return true;
         
         for (String p : permissions) {
@@ -46,7 +51,8 @@ public class PartyChatSubCommand implements DualSubCommandInterface {
         return false;
     }
 
-    public void executeSubCommand(CommandSender sender, String[] cmdargs) {
+    @Override
+	public void executeSubCommand(CommandSender sender, String[] cmdargs) {
         
             if (cmdargs.length > 1) {
                 StringBuilder a = new StringBuilder();
@@ -65,7 +71,8 @@ public class PartyChatSubCommand implements DualSubCommandInterface {
             sender.sendMessage(getLongHelp());
     }
 
-    public List<String> onSubCommandTabComplete(CommandSender sender, String[] args) {
+    @Override
+	public List<String> onSubCommandTabComplete(CommandSender sender, String[] args) {
         if (args.length == 1) {
             return Util.getPartyCollection();
         }

@@ -54,10 +54,11 @@ public class DeprecatedPartyAdminCommand implements TabExecutor {
     private final HashMap<CommandSender,List<String>> auto;
 
     public DeprecatedPartyAdminCommand() {
-        this.auto = new HashMap<CommandSender,List<String>>();
+        this.auto = new HashMap<>();
     }
 
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    @Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = null;
         if (sender instanceof Player) {
             player = (Player) sender;
@@ -133,7 +134,8 @@ public class DeprecatedPartyAdminCommand implements TabExecutor {
      * @param args
      * @return
      */
-    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+    @Override
+	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
 
         switch (args.length) {
             case 1: // If we have no arguments to the command yet
@@ -151,7 +153,7 @@ public class DeprecatedPartyAdminCommand implements TabExecutor {
                     }
                     
                     auto.remove(sender); // Otherwise, if the argument is user altered, then remove the previous list, and build a new one
-                    List<String> c = new ArrayList<String>();
+                    List<String> c = new ArrayList<>();
                     for (String s : collection) {
                         if (s.toLowerCase().startsWith(args[1].toLowerCase())) { // Check to see if the substring is contained in any parties
                             c.add(s);
@@ -174,7 +176,7 @@ public class DeprecatedPartyAdminCommand implements TabExecutor {
                     }
                     
                     auto.remove(sender);
-                    List<String> c = new ArrayList<String>();
+                    List<String> c = new ArrayList<>();
                     for (String s : collection) {
                         if (s.toLowerCase().startsWith(args[2].toLowerCase())) {
                             c.add(s);

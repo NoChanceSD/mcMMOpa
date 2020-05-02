@@ -23,7 +23,7 @@ public abstract class DualCommandExecutor implements TabExecutor {
     private final Map<Class<? extends DualSubCommandInterface>, DualSubCommandInterface> subCommands;
 
     protected DualCommandExecutor() {
-        subCommands = new HashMap<Class<? extends DualSubCommandInterface>, DualSubCommandInterface>();
+        subCommands = new HashMap<>();
     }
 
     /**
@@ -98,7 +98,8 @@ public abstract class DualCommandExecutor implements TabExecutor {
      * subcommand, if any.
      * @return Should normally be true.
      */
-    public final boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    @Override
+	public final boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args == null || args.length == 0) {
             return onNoSubCommand(sender, command, label);
         }
@@ -127,7 +128,8 @@ public abstract class DualCommandExecutor implements TabExecutor {
      * subcommand, if any.
      * @return Should normally be true.
      */
-    public final List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+    @Override
+	public final List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 1) {
             List<String> commands = getPrincipalSubcommands();
             Collections.sort(commands);
@@ -142,7 +144,7 @@ public abstract class DualCommandExecutor implements TabExecutor {
             List<String> s = getInstanceFromSubcommand(args[0]).onSubCommandTabComplete(sender, subargs);
             // If the user has a partial command, filter out those that don't match.
             if (!"".equals(args[args.length - 1])) {
-                List<String> temp = new ArrayList<String>(s);
+                List<String> temp = new ArrayList<>(s);
                 for (String t : temp) {
                     if (!(t.toLowerCase().startsWith(args[args.length - 1].toLowerCase()))) {
                         s.remove(t);
@@ -211,8 +213,9 @@ public abstract class DualCommandExecutor implements TabExecutor {
         throw new SubCommandNotRegisteredException("The subcommand " + sub + " is not registered.");
     }
 
-    private List<String> getAllSubcommands() {
-        List<String> s = new LinkedList<String>();
+    @SuppressWarnings("unused")
+	private List<String> getAllSubcommands() {
+        List<String> s = new LinkedList<>();
         for (DualSubCommandInterface sc : subCommands.values()) {
             s.addAll(sc.getSubCommands());
         }
@@ -220,7 +223,7 @@ public abstract class DualCommandExecutor implements TabExecutor {
     }
 
     private List<String> getPrincipalSubcommands() {
-        List<String> s = new LinkedList<String>();
+        List<String> s = new LinkedList<>();
         for (DualSubCommandInterface sc : subCommands.values()) {
             s.add(sc.getSubCommands().get(0));
         }

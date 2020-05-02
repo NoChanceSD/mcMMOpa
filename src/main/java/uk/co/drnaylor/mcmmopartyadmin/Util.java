@@ -47,7 +47,7 @@ public class Util {
      * @return Collection of party names
      */
     public static ArrayList<String> getPartyCollection() {
-        ArrayList<String> a = new ArrayList<String>();
+        ArrayList<String> a = new ArrayList<>();
         List<Party> parties = PartyAPI.getParties();
         for (Party p : parties) {
             a.add(p.getName());
